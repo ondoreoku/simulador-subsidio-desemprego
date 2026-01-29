@@ -1,74 +1,45 @@
-:root { --primary: #2563eb; --bg: #f3f4f6; --card: #ffffff; --text: #1f2937; --border: #e5e7eb; }
-body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 20px; margin: 0; }
-.container { max-width: 850px; margin: 0 auto; }
-header { text-align: center; margin-bottom: 30px; }
-.card { background: var(--card); padding: 2rem; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 25px; }
-.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.grid-res { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-@media (max-width: 600px) { .grid, .grid-res { grid-template-columns: 1fr; } }
-label { font-size: 0.8rem; font-weight: 600; color: #4b5563; margin-bottom: 8px; display: block; }
-input, select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; }
-.btn-main { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 20px; transition: background 0.2s; }
-.btn-main:hover { background: #1d4ed8; }
-.big-val { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
-.res-card { background: #eff6ff; padding: 20px; border-radius: 10px; text-align: center; }
-.info-content p { line-height: 1.8; color: #374151; }
-.network-links { margin-bottom: 20px; font-size: 0.85rem; }
-footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border); }
-footer a { color: var(--primary); text-decoration: none; margin: 0 10px; }
-/* Navbar Global Estilo */
-.navbar-global {
-    background: #1e2937;
-    padding: 12px 0;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-.nav-container {
-    max-width: 900px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 15px;
-}
-.nav-logo {
-    color: white;
-    font-weight: 800;
-    text-decoration: none;
-    font-size: 1.1rem;
-}
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-    margin: 0;
-    padding: 0;
-}
-.nav-links a {
-    color: #cbd5e1;
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 600;
-    transition: color 0.2s;
-}
-.nav-links a:hover {
-    color: white;
+:root {
+    --primary: #059669; /* Verde Sucesso */
+    --primary-hover: #047857;
+    --dark: #111827;
+    --gray-bg: #f9fafb;
+    --text-main: #1f2937;
+    --border: #e5e7eb;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-/* Ajuste para Mobile */
-@media (max-width: 600px) {
-    .nav-container { flex-direction: column; gap: 10px; }
-    .nav-links { gap: 10px; font-size: 0.75rem; }
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--gray-bg);
+    color: var(--text-main);
+    margin: 0;
+    line-height: 1.5;
 }
-/* Navbar Estilo Profissional */
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+}
+
+/* Navbar Global */
 .navbar-global {
-    background: #111827;
-    padding: 15px 0;
+    background: var(--dark);
+    padding: 1rem 0;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
+
 .nav-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -77,32 +48,47 @@ footer a { color: var(--primary); text-decoration: none; margin: 0 10px; }
     align-items: center;
     padding: 0 20px;
 }
+
 .nav-logo {
     color: white;
     font-weight: 800;
     text-decoration: none;
     font-size: 1.2rem;
 }
+
 .nav-links {
-    list-style: none;
     display: flex;
     gap: 20px;
+    list-style: none;
     margin: 0;
     padding: 0;
 }
+
 .nav-links a {
     color: #9ca3af;
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    transition: color 0.2s ease;
-}
-.nav-links a:hover {
-    color: #059669; /* Verde sucesso */
+    transition: 0.2s;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-    .nav-container { flex-direction: column; gap: 10px; }
-    .nav-links { gap: 10px; font-size: 0.75rem; }
+.nav-links a:hover, .nav-links a.active {
+    color: white;
+}
+
+/* Botão Padrão */
+.btn-main {
+    width: 100%;
+    background-color: var(--primary);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-main:hover {
+    background-color: var(--primary-hover);
 }
