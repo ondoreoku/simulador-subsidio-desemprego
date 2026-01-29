@@ -1,48 +1,32 @@
-let myChart;
+function calcularDesemprego() {
+    const mediaSalarial = parseFloat(document.getElementById('mediaSalarial').value) || 0;
+    const idade = parseInt(document.getElementById('idade').value) || 0;
+    const meses = parseInt(document.getElementById('mesesDesconto').value) || 0;
+    const majoracao = document.getElementById('majoracao').value;
 
-function calcularCredito() {
-    const capital = parseFloat(document.getElementById('capital').value) || 0;
-    const prazoAnos = parseInt(document.getElementById('prazo').value) || 0;
-    const taxaAnual = (parseFloat(document.getElementById('taxa').value) || 0) / 100;
-    const extra = parseFloat(document.getElementById('extra').value) || 0;
+    // Cálculo Base: 65% da remuneração de referência
+    let valorBase = mediaSalarial * 0.65;
+    
+    // IAS 2026 (Estimado para fins de simulação: 530€)
+    const IAS = 530.00;
+    
+    // Limites
+    if (valorBase < IAS) valorBase = IAS;
+    if (valorBase > (IAS * 2.5)) valorBase = IAS * 2.5;
 
-    if (capital <= 0 || prazoAnos <= 0) return;
-
-    const n = prazoAnos * 12;
-    const i = taxaAnual / 12;
-
-    const prestacao = capital * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
-    const totalPagoOriginal = prestacao * n;
-    const jurosOriginais = totalPagoOriginal - capital;
-
-    document.getElementById('results').style.display = 'block';
-    document.getElementById('out-prestacao').innerText = `€${prestacao.toFixed(2)}`;
-    document.getElementById('out-juros').innerText = `€${jurosOriginais.toFixed(2)}`;
-
-    if (extra > 0) {
-        const novoCapital = capital - extra;
-        const novaPrestacao = novoCapital * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
-        const poupancaMensal = prestacao - novaPrestacao;
-        const poupancaJuros = totalPagoOriginal - (novaPrestacao * n) - extra;
-
-        document.getElementById('amortization-info').innerHTML = 
-            `💰 <strong>Poupança Real:</strong> Ao amortizar €${extra.toLocaleString()}, a sua prestação baixa €${poupancaMensal.toFixed(2)} e poupa <strong>€${poupancaJuros.toFixed(2)}</strong> em juros!`;
-    } else {
-        document.getElementById('amortization-info').innerHTML = "Introduza um valor de amortização para ver o benefício.";
+    // Majoração de 10% se ambos os membros do casal estiverem desempregados com filhos
+    if (majoracao === 'sim') {
+        valorBase = valorBase * 1.10;
     }
 
-    updateChart(capital, jurosOriginais);
-}
+    // Lógica Simplificada de Duração (Baseada em faixas de idade)
+    let diasDuracao = 0;
+    if (idade < 30) diasDuracao = meses < 24 ? 150 : 270;
+    else if (idade < 40) diasDuracao = meses < 24 ? 210 : 330;
+    else if (idade < 50) diasDuracao = meses < 24 ? 270 : 420;
+    else diasDuracao = 540;
 
-function updateChart(cap, jur) {
-    const ctx = document.getElementById('savingsChart').getContext('2d');
-    if (myChart) myChart.destroy();
-    myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Capital', 'Juros'],
-            datasets: [{ data: [cap, jur], backgroundColor: ['#059669', '#ef4444'], hoverOffset: 4 }]
-        },
-        options: { plugins: { legend: { position: 'bottom' } } }
-    });
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('out-valor').innerText = `€${valorBase.toFixed(2)}`;
+    document.getElementById('out-duracao').innerText = `${diasDuracao} Dias`;
 }
