@@ -16,8 +16,7 @@ async function calcularSubsidio() {
     }
 
     // 2. Preparar UI para "Loading"
-    // Procura o botão pelo onclick ou pela classe padrão
-    const btn = document.querySelector('button[onclick="calcularSubsidio()"]') || document.querySelector('.btn-main');
+    const btn = document.querySelector('button[onclick="calcularSubsidio()"]');
     const resultsDiv = document.getElementById('results');
     const textoOriginal = btn ? btn.innerText : 'Calcular Apoio';
 
